@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathAgenda - Gestão de Aulas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>MathAgenda - Gestão de Aulas</h1>
+
+    <section id="agendamento">
+        <h2>Agendar Aula</h2>
+        <form id="formAgendamento">
+            <label>Nome do Aluno:</label>
+            <input type="text" id="nomeAluno" required>
+
+            <label>Email do Aluno:</label>
+            <input type="email" id="emailAluno" required>
+
+            <label>Data da Aula:</label>
+            <input type="date" id="dataAula" required>
+
+            <label>Hora da Aula:</label>
+            <select id="horaAula" required>
+                <!-- As horas disponíveis serão preenchidas via JavaScript -->
+            </select>
+
+            <button type="submit">Agendar</button>
+        </form>
+    </section>
+
+    <section id="listaAulas">
+        <h2>Aulas Agendadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Email</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaAulas"></tbody>
+        </table>
+        <button id="exportarCSV">Exportar Dados</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+

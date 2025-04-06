@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão da Professora - MathAgenda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Visão da Professora - Aulas Agendadas</h1>
+
+    <section id="listaAulas">
+        <h2>Todas as Aulas Agendadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Email</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaAulas"></tbody>
+        </table>
+        <button id="exportarCSV">Exportar Dados</button>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabelaAulas = document.getElementById("tabelaAulas");
+            const exportarCSV = document.getElementById("exportarCSV");
+            let aulas = JSON.parse(localStorage.getItem("aulas")) || [];
+
+            function renderizarAulas() {
+                tabelaAulas.innerHTML = "";
+                aulas.forEach(aula => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${aula.nome}</td>
+                        <td>${aula.email}</td>
+                        <td>${aula.data}</td>
+                        <td>${aula.hora}</td>
+                    `;
+                    tabelaAulas.appendChild(row);
+                });
+            }
+
+            exportarCSV.addEventListener("click", function () {
+                let csvContent = "Aluno,Email,Data,Hora\n";
+                aulas.forEach(aula => {
+                    csvContent += `${aula.nome},${aula.email},${aula.data},${aula.hora}\n`;
+                });
+                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "aulas_agendadas_professora.csv";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            renderizarAulas();
+        });
+    </script>
+</body>
+</html>
